@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<robot name="rarm" xmlns:xacro="http://www.ros.org/wifi/xacro">
+
+    <!-- Base link -->
+    <xacro:property name="base_length" value="0.5"/>
+    <xacro:property name="base_mass" value="12"/>
+
+    <!-- Lower arm -->
+    <xacro:property name="lower_length" value="0.5"/>
+    <xacro:property name="lower_mass" value="1"/>
+
+    <!-- Upper arm -->
+    <xacro:property name="upper_length" value="0.5"/>
+    <xacro:property name="upper_mass" value="1"/>
+
+    <!-- Inertial Properties -->
+    <xacro:macro name="inertials" params="mass length">
+        <inertial>
+            <origin xyz="0 0 ${length}" rpy="0 0 0"/>
+            <mass value="${mass}"/>
+            <inertia ixx="${0.1*mass}" ixy="0.0" ixz="0.0" iyy="${0.05*mass}" iyz="0.0" izz="${0.1*mass}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- Ensuring base is connected to a global statrionary root  -->
+    <link name="root"/>
+    <link name="world"/>
+
+    <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="root"/>
+    </joint>
+
+    <joint name="fixed2" type="fixed">
+        <parent link="root"/>
+        <child link="base_link"/>
+    </joint>
+
+        
+     <!-- Base , 2 revolute joints perpendicular to each other -->
+  
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+               <cylinder radius="0.45" length="1"/>
+            </geometry>
+        </visual>
+
+        <collision>
+             <origin rpy="0 0 0" xyz="0 0 0"/>
+                  <geometry>
+                    <cylinder radius="0.45" length="1"/>
+                  </geometry>
+        </collision>
+    </link>
+
+        <joint name="base_joint" type="revolute">
+            <axis xyz="0 0 1"/>
+            <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+             <origin rpy="0 0 0" xyz="0 0 0.5"/>
+             <parent link="base_link"/>
+             <child link="base_child"/>
+        </joint>  
+
+    <transmission name="base_to_lower">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="base_to_lower_actuator"/>
+  </transmission>
+
+
+
+    <link name="base_child">
+     <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+               <cylinder radius="0.35" length="0.1"/>
+            </geometry>
+        </visual>
+        <collision>
+             <origin rpy="0 0 0" xyz="0 0 0"/>
+                  <geometry>
+                    <cylinder radius="0.35" length="0.1"/>
+                  </geometry>
+        </collision>
+    </link>
+    
+        
+    <xacro:inertials mass="${base_mass}" length="${base_length/2}"/>
+
+
+        <joint name="base_elbow" type="revolute">
+            <axis xyz="0 1 0"/>
+            <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <parent link="base_child"/>
+            <child link="low_elbow"/>
+        </joint>
+
+    <transmission name="base_to_lower">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_elbow">
+         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+         <actuator name="base_to_lower_actuator"/>
+    </transmission>
+
+
+<!-- Lower link : Blue-->
+
+    <link name="low_elbow">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.8"/>
+            <geometry>
+                <cylinder radius="0.15" length="1.8"/>
+            </geometry>
+            <material name="Blue">
+             <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.8"/>
+                <geometry>
+                     <cylinder radius="0.15" length="1.8"/>
+                </geometry>
+        </collision>
+    </link>
+
+    <xacro:inertials mass="${lower_mass}" length="${lower_length/2}"/>
+
+
+        <joint name="elbow_joint" type="revolute">
+            <axis xyz="0 1 0"/>
+            <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+            <origin rpy="0 0 0" xyz="0 0 1.7"/>
+            <parent link="low_elbow"/>
+            <child link="upper_elbow"/>
+        </joint>
+
+    <transmission name="lower_to_upper">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="elbow_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="lower_to_upper_actuator"/>
+    </transmission>
+
+
+    <!-- Upper Link : Green -->
+
+    <link name="upper_elbow" type="revolute">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.8"/>
+            <geometry>
+                <cylinder radius="0.15" length="1.8"/>
+            </geometry>
+            <material name="Green">
+                 <color rgba="0.0 1.0 0.0 1.0"/>
+       </material>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 1.4"/>
+                <geometry>
+                    <cylinder radius="0.15" length="1.8"/>
+                </geometry>
+        </collision>
+    </link>
+
+    <xacro:inertials mass="${upper_mass}" length="${upper_length/2}"/>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        </plugin>
+    </gazebo>
+     
+</robot>
