@@ -4,35 +4,34 @@
     <!-- Base link -->
     <xacro:property name="base_length" value="0.5"/>
     <xacro:property name="base_mass" value="12"/>
+    <xacro:property name="base_z" value="0"/>
 
     <!-- Lower arm -->
     <xacro:property name="lower_length" value="0.5"/>
     <xacro:property name="lower_mass" value="1"/>
+    <xacro:property name="lower_z" value="0"/>
 
     <!-- Upper arm -->
     <xacro:property name="upper_length" value="0.5"/>
     <xacro:property name="upper_mass" value="1"/>
+    <xacro:property name="upper_z" value="0.8"/>
 
     <!-- Inertial Properties -->
-    <xacro:macro name="inertials" params="mass length">
+    <xacro:macro name="inertials" params="mass length z">
         <inertial>
-            <origin xyz="0 0 ${length}" rpy="0 0 0"/>
+            <origin xyz="0 0 ${z}" rpy="0 0 0"/>
             <mass value="${mass}"/>
             <inertia ixx="${0.1*mass}" ixy="0.0" ixz="0.0" iyy="${0.05*mass}" iyz="0.0" izz="${0.1*mass}" />
         </inertial>
     </xacro:macro>
 
-    <!-- Ensuring base is connected to a global statrionary root  -->
-    <link name="root"/>
+    <!-- Ensuring base is connected to a global stationary root  -->
+
     <link name="world"/>
 
-    <joint name="fixed" type="fixed">
-        <parent link="world"/>
-        <child link="root"/>
-    </joint>
 
-    <joint name="fixed2" type="fixed">
-        <parent link="root"/>
+    <joint name="fixedjoint" type="fixed">
+        <parent link="world"/>
         <child link="base_link"/>
     </joint>
 
@@ -40,6 +39,7 @@
      <!-- Base , 2 revolute joints perpendicular to each other -->
   
     <link name="base_link">
+        <xacro:inertials mass="${2*base_mass}" length="${base_length*2}" z="${base_z}"/>
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -55,6 +55,9 @@
         </collision>
     </link>
 
+        <!-- <xacro:inertials mass="${2*base_mass}" length="${base_length*2}"/> -->
+
+
         <joint name="base_joint" type="revolute">
             <axis xyz="0 0 1"/>
             <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
@@ -69,11 +72,12 @@
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="base_to_lower_actuator"/>
-  </transmission>
+    </transmission>
 
 
 
     <link name="base_child">
+     <xacro:inertials mass="${base_mass}" length="${base_length/2}" z="${base_z}"/>
      <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -89,7 +93,7 @@
     </link>
     
         
-    <xacro:inertials mass="${base_mass}" length="${base_length/2}"/>
+    <!-- <xacro:inertials mass="${base_mass}" length="${base_length/2}"/> -->
 
 
         <joint name="base_elbow" type="revolute">
@@ -112,6 +116,7 @@
 <!-- Lower link : Blue-->
 
     <link name="low_elbow">
+     <xacro:inertials mass="${lower_mass}" length="${lower_length/2}" z="${lower_z}"/>
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0.8"/>
             <geometry>
@@ -130,7 +135,7 @@
         </collision>
     </link>
 
-    <xacro:inertials mass="${lower_mass}" length="${lower_length/2}"/>
+    <!-- <xacro:inertials mass="${lower_mass}" length="${lower_length/2}"/> -->
 
 
         <joint name="elbow_joint" type="revolute">
@@ -153,6 +158,8 @@
     <!-- Upper Link : Green -->
 
     <link name="upper_elbow" type="revolute">
+        <xacro:inertials mass="${upper_mass}" length="${upper_length/2}" z="${upper_z}"/>
+
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0.8"/>
             <geometry>
@@ -171,7 +178,7 @@
         </collision>
     </link>
 
-    <xacro:inertials mass="${upper_mass}" length="${upper_length/2}"/>
+    <!-- <xacro:inertials mass="${upper_mass}" length="${upper_length/2}"/> -->
 
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
