@@ -1,8 +1,0 @@
-prefix=/home/akshat/pick-and-place/devel
-
-Name: nodes
-Description: Description of nodes
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,2 +1,0 @@
-moveit_config:nodes:rarm_description
--DCATKIN_DEVEL_PREFIX=/home/akshat/pick-and-place/devel -DCMAKE_INSTALL_PREFIX=/home/akshat/pick-and-place/install -G Unix Makefiles
