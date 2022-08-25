@@ -1,0 +1,59 @@
+<launch>
+
+ <!-- Start a gazebo world -->
+    <arg name="debug" default="false"/>
+    <arg name="gui" default="false"/>
+    <arg name="pause" default="false"/>
+    <arg name="world" default="true"/>
+
+    <!-- Including gazebo_ros launcher from package-->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    
+        <arg name="debug" value="$(arg debug)"/>
+        <arg name="gui" value="true"/>
+        <arg name="paused" value="$(arg pause)"/>
+        <arg name="world_name" value="$(arg world)"/>
+        <arg name="use_sim_time" value="true"/>
+    </include>
+       <!-- Robot model -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rarm_description)/urdf/arm.xacro'" />
+        <arg name="x" default="0"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0.5"/>
+        
+        <!-- Spawn the robot model -->
+        <node name="rarm_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+              args="-urdf -param robot_description -model mrm -x $(arg x) -y $(arg y) -z $(arg z)" />
+      
+        <!-- Load controllers -->
+        <rosparam command="load" file="$(find rarm_description)/launch/plugins/joints.yaml" />
+        
+        <!-- Controllers -->
+        <node name="controller_spawner" pkg="controller_manager" type="spawner"
+            respawn="false" output="screen" ns="/rarm" args="--namespace=/rarm joint_state_controller joint1_position_controller joint2_position_controller joint3_position_controller" >
+        </node>
+        
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+        </node>
+            
+    <rosparam command="load" file="$(find moveit_config)/config/joints.yaml"/>
+
+      <include file="$(find moveit_config)/launch/planning_context.launch" >
+        <arg name="load_robot_description" value="true" />
+      </include>
+
+      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="/use_gui" value="false"/>
+        <rosparam param="/source_list">[/joint_states]</rosparam>
+      </node>
+
+      <include file="$(find moveit_config)/launch/move_group.launch">
+        <arg name="publish_monitored_planning_scene" value="true" />
+      </include>
+
+      <!-- <include file="$(find moveit_config)/launch/moveit_rviz.launch">
+        <arg name="config" value="true"/>
+      </include> -->
+
+      </launch>

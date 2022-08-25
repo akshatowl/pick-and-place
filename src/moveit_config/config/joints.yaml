@@ -1,0 +1,1 @@
+  controller_joint_names: [fixedjoint, base_joint, base_elbow, low_elbow, upper_elbow]

@@ -1,0 +1,12 @@
+controller_list:
+  - name: fake_rarm_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - base_joint
+      - base_elbow
+      - elbow_joint
+initial:  # Define initial robot poses per group
+#  - group: rarm
+#    pose: home
+
+  []
