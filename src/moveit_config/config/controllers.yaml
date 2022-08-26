@@ -1,5 +1,6 @@
 controller_list:
   - name: arm_controller
     action_ns: "follow_joint_trajectory"
+    default: True
     type: FollowJointTrajectory
     joints: [fixedjoint, base_joint, base_elbow, low_elbow, upper_elbow]
