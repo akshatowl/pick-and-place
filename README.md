@@ -1,5 +1,9 @@
 # REST API Design : UIN: 234008952
 All the element operations have the basic CRUD (Create, Read, Update, Delete). Apart from this a few more relevant operations are mentioned.
+Create -> POST
+Read -> PUT
+Delete -> DELETE
+Update -> PUT
 # Product Operations
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
