@@ -4,7 +4,8 @@ All the element operations have the basic CRUD (Create, Read, Update, Delete). A
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
 |-----------------|--------------------------------------------------|--------------------------------------|-------------|
-| Create   | Create a new product                             | `/products`                          | POST        |
+| Create   | Create a new product Product data object is in HTTP
+Request body                             | `/products`                          | POST        |
 | Read  | Retrieve details of a specific product by productID | `/products/{productID}`             | GET         |
 | Update   | Update the details of an existing product by productID | `/products/{productID}`             | PUT         |
 | Delete   | Delete a product by productID                   | `/products/{productID}`             | DELETE      |
