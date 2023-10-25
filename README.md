@@ -1,4 +1,4 @@
-## Product Operations
+# Product Operations
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
 |-----------------|--------------------------------------------------|--------------------------------------|-------------|
@@ -9,7 +9,7 @@
 | Search Products by Name | Search for products by product name and retrieve details | `/products/search?name={productName}` | GET         |
 | Search Products by Price Range | Search for products within a price range | `/products/search?minPrice={minPrice}&maxPrice={maxPrice}` | GET |
 
-## Order Operations
+# Order Operations
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
 |-----------------|--------------------------------------------------|--------------------------------------|-------------|
@@ -20,7 +20,7 @@
 | Search Orders by Total Cost Range | Search for orders within a total cost range | `/orders/search?minCost={minCost}&maxCost={maxCost}` | GET |
 | Search Orders by Date Range | Search for orders within a date range | `/orders/search?startDate={startDate}&endDate={endDate}` | GET |
 
-## User Operations
+# User Operations
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
 |-----------------|--------------------------------------------------|--------------------------------------|-------------|
@@ -30,7 +30,7 @@
 | Delete  Delete a user by userID                         | `/users/{userID}`                   | DELETE      |
 | Get User by Username | Retrieve details of a specific user by username | `/users/search?username={username}` | GET         |
 
-## Credit Card Operations
+# Credit Card Operations
 
 | Operation           | Description                                      | RESTful API Endpoint                 | HTTP Method |
 |---------------------|--------------------------------------------------|--------------------------------------|-------------|
