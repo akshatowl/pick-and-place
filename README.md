@@ -20,16 +20,6 @@
 | Search Orders by Total Cost Range | Search for orders within a total cost range | `/orders/search?minCost={minCost}&maxCost={maxCost}` | GET |
 | Search Orders by Date Range | Search for orders within a date range | `/orders/search?startDate={startDate}&endDate={endDate}` | GET |
 
-# User Operations
-
-| Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
-|-----------------|--------------------------------------------------|--------------------------------------|-------------|
-| Create     | Create a new user                               | `/users`                            | POST        |
-| Read | Retrieve details of a specific user by userID   | `/users/{userID}`                   | GET         |
-| Update  Update the details of an existing user by userID | `/users/{userID}`                   | PUT         |
-| Delete  Delete a user by userID                         | `/users/{userID}`                   | DELETE      |
-| Get User by Username | Retrieve details of a specific user by username | `/users/search?username={username}` | GET         |
-
 # Credit Card Operations
 
 | Operation           | Description                                      | RESTful API Endpoint                 | HTTP Method |
@@ -39,5 +29,16 @@
 | Update | Update the details of an existing credit card by creditCardID | `/creditcards/{creditCardID}` | PUT |
 | Delete | Delete a credit card by creditCardID              | `/creditcards/{creditCardID}` | DELETE |
 | Get Credit Card by OrderID | Retrieve details of a credit card based on an orderID | `/creditcards/search?orderID={orderID}` | GET |
+
+
+# User Operations
+
+| Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
+|-----------------|--------------------------------------------------|--------------------------------------|-------------|
+| Create     | Create a new user                               | `/users`                            | POST        |
+| Read | Retrieve details of a specific user by userID   | `/users/{userID}`                   | GET         |
+| Update  Update the details of an existing user by userID | `/users/{userID}`                   | PUT         |
+| Delete  Delete a user by userID                         | `/users/{userID}`                   | DELETE      |
+| Get User by Username | Retrieve details of a specific user by username | `/users/search?username={username}` | GET         |
 
 
