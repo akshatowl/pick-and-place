@@ -1,3 +1,5 @@
+# REST API Design : UIN: 234008952
+All the element operations have the basic CRUD (Create, Read, Update, Delete). Apart from this a few more relevant operations are mentioned.
 # Product Operations
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
@@ -28,7 +30,7 @@
 | Read | Retrieve details of a specific credit card by creditCardID | `/creditcards/{creditCardID}` | GET |
 | Update | Update the details of an existing credit card by creditCardID | `/creditcards/{creditCardID}` | PUT |
 | Delete | Delete a credit card by creditCardID              | `/creditcards/{creditCardID}` | DELETE |
-| Get Credit Card by OrderID | Retrieve details of a credit card based on an orderID | `/creditcards/search?orderID={orderID}` | GET |
+| Search Credit Card by OrderID | Retrieve details of a credit card based on an orderID | `/creditcards/search?orderID={orderID}` | GET |
 
 
 # User Operations
