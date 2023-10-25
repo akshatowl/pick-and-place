@@ -39,7 +39,7 @@
 | Read | Retrieve details of a specific user by userID   | `/users/{userID}`                   | GET         |
 | Update | Update the details of an existing user by userID | `/users/{userID}`                   | PUT         |
 | Delete | Delete a user by userID                         | `/users/{userID}`                   | DELETE      |
-| Get User by Username | Retrieve details of a specific user by username | `/users/search?username={username}` | GET         |
+| Get User by Username | Retrieve details of a specific user by username | `/users/search?username={username}` | GET |
 
 
 
