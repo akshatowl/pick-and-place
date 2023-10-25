@@ -35,10 +35,11 @@
 
 | Operation       | Description                                      | RESTful API Endpoint                 | HTTP Method |
 |-----------------|--------------------------------------------------|--------------------------------------|-------------|
-| Create     | Create a new user                               | `/users`                            | POST        |
+| Create | Create a new user                               | `/users`                            | POST        |
 | Read | Retrieve details of a specific user by userID   | `/users/{userID}`                   | GET         |
-| Update  Update the details of an existing user by userID | `/users/{userID}`                   | PUT         |
-| Delete  Delete a user by userID                         | `/users/{userID}`                   | DELETE      |
+| Update | Update the details of an existing user by userID | `/users/{userID}`                   | PUT         |
+| Delete | Delete a user by userID                         | `/users/{userID}`                   | DELETE      |
 | Get User by Username | Retrieve details of a specific user by username | `/users/search?username={username}` | GET         |
+
 
 
